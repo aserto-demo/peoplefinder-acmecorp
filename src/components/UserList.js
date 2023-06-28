@@ -3,7 +3,7 @@ import { CardDeck } from 'react-bootstrap'
 import UserCard from './UserCard'
 
 const UserList = ({ users, setUsers }) => {
-  const idKey = 'id';
+  const idKey = 'key';
   const results = 40;
 
   return (
