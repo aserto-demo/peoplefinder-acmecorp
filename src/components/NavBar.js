@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { NavLink as RouterNavLink } from 'react-router-dom'
 
 import {
@@ -30,7 +30,7 @@ const NavBar = () => {
 
   const { signIn, signOut } = dexAuth
 
-  const { reload, identity, setIdentity } = useAserto();
+  const { identity, setIdentity } = useAserto();
   const { users } = useUsers();
 
   // set the current user by finding it in the user list based on the current identity
@@ -67,17 +67,7 @@ const NavBar = () => {
   // set the identity in the Aserto hook
   const setUser = (u) => {
     setIdentity(u);
-    // reload the display state if the user has not changed
-    if (u === identity) {
-      reload();
-    }
   }
-
-  // reload the display state map if the identity is changed
-  useEffect(() => {
-    reload();
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [identity]);
 
   return (
     <div className="nav-container">
