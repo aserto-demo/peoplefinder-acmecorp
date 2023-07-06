@@ -14,14 +14,10 @@ const directoryClient = ds({
   apiKey: directoryApiKey,
 });
 
-// get a user's profile from the management API
+// get a user's profile from the directory API
 exports.getUser = async (_req, key) => {
   try {
     const user = await directoryClient.object({type: 'user', key: key});
-    const managerObject = await manager(user.key);
-    const userProps = user.properties.toJson();
-    userProps["manager"] = managerObject.key;
-    user.properties.fromJson(userProps);
     return user;
   } catch (error) {
     console.error(`getUser: caught exception: ${error}`);
@@ -69,31 +65,3 @@ exports.deleteUser = async (req, user) => {
   // not implemented
   return null;
 };
-
-// get an user's manager
-async function manager(userKey) {
-  try {
-    const relation = await directoryClient.relation({
-      subject: {
-        type: "user",
-        key: userKey,
-      },
-      object: {
-        type: "user",
-      },
-      relation: {
-        name: "manager",
-        objectType: "user",
-      },
-    });
-    if (!relation || relation.length === 0) {
-      throw new Error(`No relations found for user: ${userKey}`);
-    }
-
-    const manager = await directoryClient.object(relation[0].object);
-    return manager;
-  } catch (error) {
-    console.error(`manager: caught exception: ${error}`);
-    return null;
-  }
-}

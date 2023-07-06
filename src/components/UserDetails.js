@@ -45,7 +45,9 @@ const UserDetails = withRouter(({ user, setUser, loadUser, history }) => {
       setLoading(false);
     }
 
-    reloadDisplayStateMap();
+    if (user.key) {
+      reloadDisplayStateMap();
+    }
   }, [reload, user.key])
 
   useEffect(() => {
