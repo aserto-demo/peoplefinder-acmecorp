@@ -1,6 +1,6 @@
 {
   "name": "peoplefinder",
-  "version": "0.1.24",
+  "version": "0.1.25",
   "private": true,
   "dependencies": {
     "@aserto/aserto-node": "^0.22.8",
