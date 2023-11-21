@@ -56,8 +56,8 @@ if (authorizerCertCAFile) {
 if (isNetlify) {
   const serverless = require("serverless-http");
   const handler = serverless(app);
-  exports.handler = async (context, req) => {
-    context.res = await handler(context, req);
+  exports.handler = async (event, context) => {
+    return await handler(event, context);
   }
 } else {
   // main endpoint serves react bundle from /build
