@@ -55,10 +55,7 @@ if (authorizerCertCAFile) {
 // make it work with netlify functions
 if (isNetlify) {
   const serverless = require("serverless-http");
-  const handler = serverless(app);
-  exports.handler = async (event, context) => {
-    return await handler(event, context);
-  }
+  exports.handler = serverless(app);
 } else {
   // main endpoint serves react bundle from /build
   app.use(express.static(join(__dirname, '..', 'build')));
