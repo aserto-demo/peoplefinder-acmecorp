@@ -17,7 +17,8 @@ const {
   policyRoot,
   instanceName,
   tenantId,
-  authorizerCertCAFile
+  authorizerCertCAFile,
+  directoryServiceUrl
 } = require('./src/config');
 
 const app = express();
@@ -40,6 +41,7 @@ app.use(routerBasePath, router);
 
 // log some config values
 console.log(`Authorizer: ${authorizerServiceUrl}`);
+console.log(`Directory: ${directoryServiceUrl}`);
 console.log(`Policy instance name: ${instanceName}`);
 console.log(`Policy root: ${policyRoot}`);
 
@@ -53,7 +55,10 @@ if (authorizerCertCAFile) {
 // make it work with netlify functions
 if (isNetlify) {
   const serverless = require("serverless-http");
-  exports.handler = serverless(app);
+  const handler = serverless(app);
+  exports.handler = async (event, context) => {
+    return await handler(event, context);
+  }
 } else {
   // main endpoint serves react bundle from /build
   app.use(express.static(join(__dirname, '..', 'build')));
