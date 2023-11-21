@@ -1,6 +1,6 @@
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
-const { displayStateMap, jwtAuthz, is } = require('@aserto/aserto-node');
+const { displayStateMap, is, getSSLCredentials, Authorizer, Middleware, SubIdentityMapper, JWTIdentityMapper, identityContext } = require('@aserto/aserto-node');
 const directory = require('./directory');
 const {
   policyRoot,
@@ -46,15 +46,38 @@ if (authorizerCertCAFile) {
 console.log("authzOptions", authzOptions)
 
 // check authorization by initializing the jwtAuthz middleware with option map
-const checkAuthz = jwtAuthz(authzOptions);
+const ssl = getSSLCredentials(authzOptions.authorizerCertCAFile)
 
+
+const authClient = new Authorizer({
+  authorizerServiceUrl: authzOptions.authorizerServiceUrl,
+  authorizerApiKey: authzOptions.authorizerApiKey,
+  tenantId: authzOptions.tenantId,
+}, ssl)
+
+const middleware = new Middleware({
+  client: authClient,
+  policy: {
+    name: authzOptions.instanceName,
+    instanceLabel: authzOptions.instanceLabel,
+    root: authzOptions.policyRoot,
+  },
+  identityMapper: async (req) => {
+    let mapper = JWTIdentityMapper()
+    if(req.headers['identity']){
+       mapper = SubIdentityMapper('identity')
+    }
+
+    return mapper(req)
+  },
+})
 // register routes for users API
 exports.register = (app) => {
   // set up middleware to return the display state map for this service
   app.use(displayStateMap(authzOptions));
 
-  // use checkAuthz as middleware in the route dispatch path
-  app.get("/api/users", checkJwt, checkAuthz, async (req, res) => {
+  // use middleware.Authz() as middleware in the route dispatch path
+  app.get("/api/users", checkJwt, middleware.Authz(), async (req, res) => {
     const users = await directory.getUsers(req);
     if (users) {
       res.status(200).json(users);
@@ -63,7 +86,7 @@ exports.register = (app) => {
     }
   });
 
-  app.get("/api/users/:id", checkJwt, checkAuthz, async (req, res) => {
+  app.get("/api/users/:id", checkJwt, middleware.Authz(), async (req, res) => {
     const id = req.params.id;
     const user = await directory.getUser(req, id);
     if (user) {
@@ -74,7 +97,7 @@ exports.register = (app) => {
   });
 
   // edit phone
-  app.put("/api/users/:id", checkJwt, checkAuthz, async (req, res) => {
+  app.put("/api/users/:id", checkJwt, middleware.Authz(), async (req, res) => {
     const user = req.body;
     const id = req.params.id;
     const response = await directory.updateUser(req, id, user);
@@ -86,7 +109,7 @@ exports.register = (app) => {
   });
 
   // update department and title
-  app.post("/api/users/:id", checkJwt, checkAuthz, async (req, res) => {
+  app.post("/api/users/:id", checkJwt, middleware.Authz(), async (req, res) => {
     const user = req.body;
     const id = req.params.id;
     const response = await directory.updateUser(req, id, user);
@@ -98,8 +121,8 @@ exports.register = (app) => {
   });
 
   // delete the user
-  // instead of checkAuthz, use the "is" function for a more imperative style of authorization
-  app.delete("/api/users/:id", checkJwt, /* checkAuthz,*/ async (req, res) => {
+  // instead of middleware.Authz(), use the "is" function for a more imperative style of authorization
+  app.delete("/api/users/:id", checkJwt, /* middleware.Authz(),*/ async (req, res) => {
     const id = req.params.id;
 
     try {

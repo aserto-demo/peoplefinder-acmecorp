@@ -33,22 +33,22 @@ const UserDetails = withRouter(({ user, setUser, loadUser, history }) => {
 
   // retrieve the manager name
   const managerId = user && user[attrKey] && user[attrKey].manager;
-  const manager = users && managerId && users.find(u => u.key === managerId);
+  const manager = users && managerId && users.find(u => u.id === managerId);
   const managerName = manager && manager.displayName;
 
   useEffect(() => {
     const reloadDisplayStateMap = async () => {
       setLoading(true);
       await reload(JSON.stringify({
-        id: user.key
+        id: user.id
       }))
       setLoading(false);
     }
 
-    if (user.key) {
+    if (user.id) {
       reloadDisplayStateMap();
     }
-  }, [reload, user.key])
+  }, [reload, user.id])
 
   useEffect(() => {
     setPhone(user[attrKey].phone || '');
@@ -71,7 +71,7 @@ const UserDetails = withRouter(({ user, setUser, loadUser, history }) => {
       if (identity) {
         headers.identity = identity;
       }
-      const response = await fetch(`${apiOrigin}/api/users/${user.key}`, {
+      const response = await fetch(`${apiOrigin}/api/users/${user.id}`, {
         body: JSON.stringify(body),
         headers,
         method
@@ -112,7 +112,7 @@ const UserDetails = withRouter(({ user, setUser, loadUser, history }) => {
         if (identity) {
           headers.identity = identity;
         }
-        const response = await fetch(`${apiOrigin}/api/users/${user.key}`, {
+        const response = await fetch(`${apiOrigin}/api/users/${user.id}`, {
           headers,
           method: 'DELETE'
         });
