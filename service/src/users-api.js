@@ -1,6 +1,6 @@
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
-const { displayStateMap, is, getSSLCredentials, Authorizer, Middleware } = require('@aserto/aserto-node');
+const { displayStateMap, is, getSSLCredentials, Authorizer, Middleware, SubIdentityMapper, JWTIdentityMapper, identityContext } = require('@aserto/aserto-node');
 const directory = require('./directory');
 const {
   policyRoot,
@@ -61,6 +61,14 @@ const middleware = new Middleware({
     name: authzOptions.instanceName,
     instanceLabel: authzOptions.instanceLabel,
     root: authzOptions.policyRoot,
+  },
+  identityMapper: async (req) => {
+    let mapper = JWTIdentityMapper()
+    if(req.headers['identity']){
+       mapper = SubIdentityMapper('identity')
+    }
+
+    return mapper(req)
   },
 })
 // register routes for users API
