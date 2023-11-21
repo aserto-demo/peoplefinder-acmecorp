@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap'
 import { withRouter } from 'react-router-dom'
 
 const UserCard = withRouter(({ user, history }) => {
-  const id = user.key;
+  const id = user.id;
   const name = user.displayName;
 
   return (
