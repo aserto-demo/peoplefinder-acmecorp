@@ -5,10 +5,10 @@
 //   getUsers(): get all users
 //   updateUser(userId): update a user's user and app metadata fields
 
-const { DirectoryServiceV3 } = require("@aserto/aserto-node");
+const { ds } = require("@aserto/aserto-node");
 const { directoryServiceUrl, tenantId, directoryApiKey } = require("./config");
 
-const directoryClient = DirectoryServiceV3({
+const directoryClient = ds({
   url: directoryServiceUrl,
   tenantId,
   apiKey: directoryApiKey,
@@ -17,7 +17,7 @@ const directoryClient = DirectoryServiceV3({
 // get a user's profile from the directory API
 exports.getUser = async (_req, key) => {
   try {
-    const user = await directoryClient.object({objectType: 'user', objectId: key});
+    const user = await directoryClient.object({type: 'user', key: key});
     return user;
   } catch (error) {
     console.error(`getUser: caught exception: ${error}`);
@@ -32,7 +32,7 @@ exports.getUsers = async (req) => {
     let page = { size: 100 };
     while (true) {
       let response = await directoryClient.objects({
-        objectType: "user" ,
+        objectType: { name: "user" },
         page: page,
       });
       users = users.concat(response.results);
@@ -52,7 +52,7 @@ exports.getUsers = async (req) => {
 // update a user
 exports.updateUser = async (req, user, payload) => {
   try {
-    const response = await directoryClient.setObject({ object: payload });
+    const response = await directoryClient.setObject(payload);
     return response;
   } catch (error) {
     console.error(`updateUser: caught exception: ${error}`);
