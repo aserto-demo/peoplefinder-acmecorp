@@ -34,10 +34,10 @@
     jsonpointer "^5.0.0"
     leven "^3.1.0"
 
-"@aserto/aserto-node@^0.30.4":
-  version "0.30.4"
-  resolved "https://registry.yarnpkg.com/@aserto/aserto-node/-/aserto-node-0.30.4.tgz#ff6535561a8ac1ed45535d3ddd90490f4c38eaf2"
-  integrity sha512-EWHnwPs9VUhSs8G4Xol1Ft3/mY+UYpAF5ya7nP/YY8FzRZUZjU244P12KPeMzvtqjiew9rYeo8BPYROO/WGGvQ==
+"@aserto/aserto-node@^0.30.5":
+  version "0.30.5"
+  resolved "https://registry.yarnpkg.com/@aserto/aserto-node/-/aserto-node-0.30.5.tgz#b311a40c43382c801bb4152332289c25e07df7c0"
+  integrity sha512-CHrfaG41pYeOdKGV1Q+PgH0QInbqX6+D0MeY1bRHXea414VdMyH1dNbuCZYDgGmoebQ3Z6+8i9rkOfjY1PFMnQ==
   dependencies:
     "@aserto/node-authorizer" "^v0.20.7"
     "@aserto/node-directory" "^0.30.1"
