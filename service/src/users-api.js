@@ -1,6 +1,6 @@
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
-const { displayStateMap, is, getSSLCredentials, Authorizer, Middleware, SubIdentityMapper, JWTIdentityMapper, identityContext } = require('@aserto/aserto-node');
+const { displayStateMap, is, Authorizer, Middleware, SubIdentityMapper, JWTIdentityMapper } = require('@aserto/aserto-node');
 const directory = require('./directory');
 const {
   policyRoot,
@@ -45,15 +45,14 @@ if (authorizerCertCAFile) {
 
 console.log("authzOptions", authzOptions)
 
-// check authorization by initializing the jwtAuthz middleware with option map
-const ssl = getSSLCredentials(authzOptions.authorizerCertCAFile)
 
 
 const authClient = new Authorizer({
   authorizerServiceUrl: authzOptions.authorizerServiceUrl,
   authorizerApiKey: authzOptions.authorizerApiKey,
   tenantId: authzOptions.tenantId,
-}, ssl)
+  authorizerCertCAFile: authorizerCertCAFile,
+})
 
 const middleware = new Middleware({
   client: authClient,
