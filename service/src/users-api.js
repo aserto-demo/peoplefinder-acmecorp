@@ -73,7 +73,7 @@ const middleware = new Middleware({
 // register routes for users API
 exports.register = (app) => {
   // set up middleware to return the display state map for this service
-  app.use(displayStateMap(authzOptions));
+  app.use(displayStateMap(authzOptions, async (req) => req.body));
 
   // use middleware.Authz() as middleware in the route dispatch path
   app.get("/api/users", checkJwt, middleware.Authz(), async (req, res) => {
