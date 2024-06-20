@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@aserto/aserto-node": "^0.32.4",
-    "@aserto/aserto-react": "^0.2.2",
+    "@aserto/aserto-react": "^0.3.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
