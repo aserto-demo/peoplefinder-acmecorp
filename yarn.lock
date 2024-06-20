@@ -47,10 +47,10 @@
     express "^4.19.2"
     jwt-decode "^3.1.2"
 
-"@aserto/aserto-react@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@aserto/aserto-react/-/aserto-react-0.2.2.tgz#b7bd82fa8587f02461dfb25525121f7000047acb"
-  integrity sha512-bvUSTTH3CylVczM2v8mL8zkSJr4L6QhPvaLKuT4z9y3VRNzD4Bt0DDJP1Rs/f6faH2pmyx9gBdxTQ8E9uR3nOg==
+"@aserto/aserto-react@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@aserto/aserto-react/-/aserto-react-0.3.0.tgz#1ae336f873f268343bfc4e120144fffeffdf6494"
+  integrity sha512-Orrhb/tZ+pGJD7K0IvhFssH/S8ah6CcsVbkvr21CtM5l1LmaCbcfqYp2xxkh00DFUb+matwd4OhoIAoa9Fk10Q==
   dependencies:
     "@aserto/aserto-spa-js" "^0.2.2"
 
