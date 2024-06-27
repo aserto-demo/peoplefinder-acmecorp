@@ -1,4 +1,4 @@
-const jwt = require("express-jwt");
+const jwt  = require('express-jwt')
 const jwksRsa = require("jwks-rsa");
 const { displayStateMap, is, Authorizer, Middleware, SubIdentityMapper, JWTIdentityMapper } = require('@aserto/aserto-node');
 const directory = require('./directory');
@@ -15,7 +15,7 @@ const {
   issuer
 } = require('./config');
 
-const checkJwt = jwt({
+const checkJwt = jwt.expressjwt({
   secret: jwksRsa.expressJwtSecret({
     cache: true,
     rateLimit: true,
