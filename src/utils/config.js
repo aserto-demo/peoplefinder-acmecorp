@@ -1,12 +1,12 @@
 const configuration = {
-  authority: `https://${process.env.REACT_APP_DEX_DOMAIN}/dex`,
-  clientId: process.env.REACT_APP_DEX_CLIENT_ID,
+  authority: `https://${process.env.REACT_APP_DEX_DOMAIN ?? 'acmecorp.demo.aserto.com'}/dex`,
+  clientId: process.env.REACT_APP_DEX_CLIENT_ID || 'acmecorp-app',
   autoSignIn: true,
   responseType: 'id_token',
   scope: 'openid profile email',
   redirectUri: `${window.location.origin}/callback`,
   policyRoot: process.env.REACT_APP_POLICY_ROOT,
-  audience: process.env.REACT_APP_DEX_AUDIENCE,
+  audience: process.env.REACT_APP_DEX_AUDIENCE || 'acmecorp-app',
   apiOrigin: process.env.REACT_APP_API_ORIGIN || `http://localhost:3001`
 }
 

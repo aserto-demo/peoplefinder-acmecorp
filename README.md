@@ -29,15 +29,15 @@ yarn install
 
 ### Configure credentials
 
-Copy `.env.example` into a new file in the same folder called `.env`, and replace the values with  your Aserto developer keys:
+Copy `.env.example` into a new file in the same folder called `.env`, and replace the values with your Aserto developer keys:
 
 ```bash
 
-REACT_APP_POLICY_ROOT={The policy root (the first component of the policy module name) - defaults to `peoplefinder`}
 POLICY_INSTANCE_NAME={Your Policy name}
 
 # To use the Aserto hosted authorizer, provide an API key and Tenant ID
 AUTHORIZER_API_KEY={Your Authorizer API Key - find in the Aserto console in the "Policy settings" section for this policy}
+DIRECTORY_API_KEY={Your Directory read/write API Key - find in the Aserto console in the "Policy settings" section for this policy}
 TENANT_ID={Your Tenant ID - find in the Aserto console in the "Policy settings" section for this policy}
 
 # To use a local authorizer, instead of the two variables above, provide the service URL and cert file
@@ -81,7 +81,7 @@ yarn run build
 
 ### Deploy to Netlify
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/aserto-demo/peoplefinder-acmecorp#REACT_APP_POLICY_ROOT=peoplefinder&TENANT_ID=your-Aserto-tenant-ID&POLICY_INSTANCE_NAME=your-Aserto-policy-instance-name&AUTHORIZER_API_KEY=your-Aserto-authorizer-API-key&DIRECTORY_API_KEY=your-Aserto-directory-read-write-API-key&REACT_APP_NETLIFY=NETLIFY&REACT_APP_DEMO=true&REACT_APP_DEX_DOMAIN=acmecorp.demo.aserto.com&REACT_APP_DEX_CLIENT_ID=acmecorp-app&REACT_APP_DEX_AUDIENCE=acmecorp-app)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/aserto-demo/peoplefinder-acmecorp#REACT_APP_NETLIFY=NETLIFY)
 
 The project is ready to deploy to Netlify. Just click the "Deploy to Netlify" badge on the repo, or fork the project and set up a Netlify deployment for it.
 
@@ -89,15 +89,20 @@ Note that the API is deployed as a Netlify function.
 
 Also, in order to run properly, the environment variables found in `.env.example` MUST be set up in the Deployment section in Netlify.
 
-* REACT_APP_POLICY_ROOT={policy root (the first component of the policy module name) - e.g. `peoplefinder`}
 * POLICY_INSTANCE_NAME={Your Policy name}
 * TENANT_ID={Your Tenant ID (find in the Aserto console in the "Policy settings" section)}
 * AUTHORIZER_API_KEY={Your Authorizer API Key (find in the Aserto console in the "Policy settings" section)}
 * DIRECTORY_API_KEY={Your Directory read/write API Key (find in the Aserto console in the "Connections" section under "Aserto Directory" connection)}
 * REACT_APP_NETLIFY=NETLIFY
+
+
+The following environment variables have the right defaults and don't need to be changed unless you know what you're doing!
+
+* REACT_APP_POLICY_ROOT={policy root (the first component of the policy module name) - defaults to `peoplefinder`}
 * REACT_APP_DEX_AUDIENCE=acmecorp-app
 * REACT_APP_DEX_CLIENT_ID=acmecorp-app
 * REACT_APP_DEX_DOMAIN=acmecorp.demo.aserto.com
+
 
 ### Building and running as a local docker image
 

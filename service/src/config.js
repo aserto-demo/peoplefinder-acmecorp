@@ -17,10 +17,9 @@ module.exports = {
   directoryCertCAFile: process.env.DIRECTORY_CERT_CA_FILE,
   tenantId: process.env.TENANT_ID,
 
-  domain: process.env.REACT_APP_DOMAIN,
-  jwksUri: `https://${process.env.REACT_APP_DEX_DOMAIN}/dex/keys`,
-  issuer: `https://${process.env.REACT_APP_DEX_DOMAIN}/dex`,
-  audience: process.env.REACT_APP_DEX_AUDIENCE,
+  jwksUri: `https://${process.env.REACT_APP_DEX_DOMAIN ?? 'acmecorp.demo.aserto.com'}/dex/keys`,
+  issuer: `https://${process.env.REACT_APP_DEX_DOMAIN ?? 'acmecorp.demo.aserto.com'}/dex`,
+  audience: process.env.REACT_APP_DEX_AUDIENCE || 'acmecorp-app',
 
   port: process.env.API_PORT || 3001,
   appPort,
