@@ -40,16 +40,12 @@ AUTHORIZER_API_KEY={Your Authorizer API Key - find in the Aserto console in the 
 DIRECTORY_API_KEY={Your Directory read/write API Key - find in the Aserto console in the "Policy settings" section for this policy}
 TENANT_ID={Your Tenant ID - find in the Aserto console in the "Policy settings" section for this policy}
 
-# To use a local authorizer, instead of the two variables above, provide the service URL and cert file
+# To use a locally deployed Topaz authorizer, you'll need to provide the following variables
 AUTHORIZER_SERVICE_URL=localhost:8282
 DIRECTORY_SERVICE_URL=localhost:9292
-
-# For Topaz:
-AUTHORIZER_CERT_CA_FILE=$HOME/.config/topaz/certs/grpc-ca.crt
-DIRECTORY_CERT_CA_FILE==$HOME/.config/topaz/certs/grpc-ca.crt
-# For the Aserto edge authorizer:
-AUTHORIZER_CERT_CA_FILE=$HOME/.config/aserto/aserto-one/certs/grpc-ca.crt
-DIRECTORY_CERT_CA_FILE==$HOME/.config/aserto/aserto-one/certs/grpc-ca.crt
+# On Windows, change these to $HOMEPATH\AppData\Local\topaz\certs\grpc-ca.crt
+AUTHORIZER_CERT_CA_FILE=$HOME/.local/share/topaz/certs/grpc-ca.crt
+DIRECTORY_CERT_CA_FILE=$HOME/.local/share/topaz/certs/grpc-ca.crt
 ```
 
 Optionally, you can override these base URL's:
