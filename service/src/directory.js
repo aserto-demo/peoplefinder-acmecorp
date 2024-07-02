@@ -6,12 +6,13 @@
 //   updateUser(userId): update a user's user and app metadata fields
 
 const { DirectoryServiceV3 } = require("@aserto/aserto-node");
-const { directoryServiceUrl, tenantId, directoryApiKey } = require("./config");
+const { directoryServiceUrl, tenantId, directoryApiKey, directoryCertCAFile } = require("./config");
 
 const directoryClient = DirectoryServiceV3({
   url: directoryServiceUrl,
   tenantId,
   apiKey: directoryApiKey,
+  caFile: directoryCertCAFile,
 });
 
 // get a user's profile from the directory API
