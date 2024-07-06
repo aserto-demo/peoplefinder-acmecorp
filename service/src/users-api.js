@@ -51,7 +51,7 @@ const authClient = new Authorizer({
   authorizerServiceUrl: authzOptions.authorizerServiceUrl,
   authorizerApiKey: authzOptions.authorizerApiKey,
   tenantId: authzOptions.tenantId,
-  authorizerCertFile: authorizerCertCAFile,
+  caFile: authorizerCertCAFile,
 })
 
 const middleware = new Middleware({
