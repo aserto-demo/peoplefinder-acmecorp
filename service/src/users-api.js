@@ -1,7 +1,11 @@
 const jwt  = require('express-jwt')
 const jwksRsa = require("jwks-rsa");
-const { displayStateMap, is, Authorizer, Middleware, SubIdentityMapper, JWTIdentityMapper } = require('@aserto/aserto-node');
+const { GetObjectsResponseSchema, GetObjectResponseSchema, displayStateMap, is, Authorizer, Middleware, SubIdentityMapper, JWTIdentityMapper, SetObjectResponseSchema, ObjectSchema } = require('@aserto/aserto-node');
 const directory = require('./directory');
+const {  } = require("@bufbuild/protobuf")
+const { create, toJson, toJsonString } = require("@bufbuild/protobuf")
+
+
 const {
   policyRoot,
   instanceName,
@@ -14,6 +18,7 @@ const {
   jwksUri,
   issuer
 } = require('./config');
+const { fromJson } = require('@bufbuild/protobuf');
 
 const checkJwt = jwt.expressjwt({
   secret: jwksRsa.expressJwtSecret({
@@ -78,8 +83,9 @@ exports.register = (app) => {
   // use middleware.Authz() as middleware in the route dispatch path
   app.get("/api/users", checkJwt, middleware.Authz(), async (req, res) => {
     const users = await directory.getUsers(req);
-    if (users) {
-      res.status(200).json(users);
+    if (!!users) {
+      const data = toJson(GetObjectsResponseSchema, users).results
+      res.status(200).send(data);
     } else {
       res.status(403).send('something went wrong');
     }
@@ -88,8 +94,9 @@ exports.register = (app) => {
   app.get("/api/users/:id", checkJwt, middleware.Authz(), async (req, res) => {
     const id = req.params.id;
     const user = await directory.getUser(req, id);
-    if (user) {
-      res.status(200).send(user);
+    if (!!user) {
+      const data = toJson(GetObjectResponseSchema, user).result
+      res.status(200).send(data);
     } else {
       res.status(403).send('something went wrong');
     }
@@ -99,9 +106,10 @@ exports.register = (app) => {
   app.put("/api/users/:id", checkJwt, middleware.Authz(), async (req, res) => {
     const user = req.body;
     const id = req.params.id;
-    const response = await directory.updateUser(req, id, user);
+    const response = await directory.updateUser(req, id,  user);
     if (response) {
-      res.status(201).send(response);
+      const data = toJson(SetObjectResponseSchema, response).result
+      res.status(201).send(data);
     } else {
       res.status(403).send('something went wrong');
     }
@@ -113,7 +121,8 @@ exports.register = (app) => {
     const id = req.params.id;
     const response = await directory.updateUser(req, id, user);
     if (response) {
-      res.status(201).send(response);
+      const data = toJson(SetObjectResponseSchema, response).result
+      res.status(201).send(data);
     } else {
       res.status(403).send('something went wrong');
     }

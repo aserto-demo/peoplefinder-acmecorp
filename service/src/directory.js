@@ -5,6 +5,9 @@
 //   getUsers(): get all users
 //   updateUser(userId): update a user's user and app metadata fields
 
+const { GetObjectsResponseSchema, SetObjectRequestSchema } = require('@aserto/aserto-node');
+const { create, fromJson } = require("@bufbuild/protobuf")
+
 const { DirectoryServiceV3 } = require("@aserto/aserto-node");
 const { directoryServiceUrl, tenantId, directoryApiKey, directoryCertCAFile } = require("./config");
 
@@ -43,7 +46,7 @@ exports.getUsers = async (req) => {
       }
       page = { size: 100, token: nextToken };
     }
-    return users;
+    return create(GetObjectsResponseSchema, { results: users})
   } catch (error) {
     console.error(`getUsers: caught exception: ${error}`);
     return null;
@@ -53,7 +56,7 @@ exports.getUsers = async (req) => {
 // update a user
 exports.updateUser = async (req, user, payload) => {
   try {
-    const response = await directoryClient.setObject({ object: payload });
+    const response = await directoryClient.setObject(fromJson(SetObjectRequestSchema, { object: payload }));
     return response;
   } catch (error) {
     console.error(`updateUser: caught exception: ${error}`);
