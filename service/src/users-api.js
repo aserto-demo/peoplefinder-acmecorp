@@ -1,9 +1,7 @@
 const jwt  = require('express-jwt')
 const jwksRsa = require("jwks-rsa");
-const {displayStateMap, is, Authorizer, Middleware, SubIdentityMapper, JWTIdentityMapper} = require('@aserto/aserto-node');
+const { displayStateMap, is, Authorizer, Middleware, SubIdentityMapper, JWTIdentityMapper } = require('@aserto/aserto-node');
 const directory = require('./directory');
-
-
 const {
   policyRoot,
   instanceName,
@@ -45,8 +43,7 @@ if (authorizerCertCAFile) {
   authzOptions.authorizerCertCAFile = authorizerCertCAFile;
 }
 
-
-
+console.log("authzOptions", authzOptions);
 
 const authClient = new Authorizer({
   authorizerServiceUrl: authzOptions.authorizerServiceUrl,
@@ -80,7 +77,7 @@ exports.register = (app) => {
   app.get("/api/users", checkJwt, middleware.Authz(), async (req, res) => {
     const users = await directory.getUsers(req);
     if (users) {
-      res.status(200).send(users);
+      res.status(200).json(users);
     } else {
       res.status(403).send('something went wrong');
     }
@@ -100,7 +97,7 @@ exports.register = (app) => {
   app.put("/api/users/:id", checkJwt, middleware.Authz(), async (req, res) => {
     const user = req.body;
     const id = req.params.id;
-    const response = await directory.updateUser(req, id,  user);
+    const response = await directory.updateUser(req, id, user);
     if (response) {
       res.status(201).send(response);
     } else {

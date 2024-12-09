@@ -22,7 +22,7 @@ const directoryClient = DirectoryServiceV3({
 exports.getUser = async (_req, key) => {
   try {
     const user = await directoryClient.object({objectType: 'user', objectId: key});
-    return toJson(GetObjectResponseSchema, user).result
+    return toJson(GetObjectResponseSchema, user).result;
   } catch (error) {
     console.error(`getUser: caught exception: ${error}`);
     return null;
@@ -39,7 +39,7 @@ exports.getUsers = async (req) => {
         objectType: "user" ,
         page: page,
       });
-      const jsonResponse = toJson(GetObjectsResponseSchema, response)
+      const jsonResponse = toJson(GetObjectsResponseSchema, response);
       users = users.concat(jsonResponse.results);
       const nextToken = response.page.nextToken;
       if (nextToken === "") {
