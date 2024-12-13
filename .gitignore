@@ -31,3 +31,4 @@ auth_config_prod.json
 gateway-ca.crt
 # Local Netlify folder
 .netlify
+.early.coverage

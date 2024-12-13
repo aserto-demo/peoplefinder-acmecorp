@@ -3,7 +3,7 @@
   "version": "0.1.26",
   "private": true,
   "dependencies": {
-    "@aserto/aserto-node": "^0.33.0",
+    "@aserto/aserto-node": "^0.33.1",
     "@aserto/aserto-react": "^0.3.0",
     "@babel/core": "^7.0.0",
     "@babel/plugin-syntax-flow": "^7.14.5",
