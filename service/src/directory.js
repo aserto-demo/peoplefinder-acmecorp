@@ -18,7 +18,8 @@ const directoryClient = DirectoryServiceV3({
 // get a user's profile from the directory API
 exports.getUser = async (_req, key) => {
   try {
-     return await directoryClient.object({objectType: 'user', objectId: key});
+    const user = await directoryClient.object({objectType: 'user', objectId: key});
+    return user;
   } catch (error) {
     console.error(`getUser: caught exception: ${error}`);
     return null;
@@ -43,7 +44,7 @@ exports.getUsers = async (req) => {
       }
       page = { size: 100, token: nextToken };
     }
-    return users
+    return users;
   } catch (error) {
     console.error(`getUsers: caught exception: ${error}`);
     return null;
@@ -53,7 +54,8 @@ exports.getUsers = async (req) => {
 // update a user
 exports.updateUser = async (req, user, payload) => {
   try {
-    return await directoryClient.setObject({ object: payload });
+    const response = await directoryClient.setObject({ object: payload });
+    return response;
   } catch (error) {
     console.error(`updateUser: caught exception: ${error}`);
     return null;
