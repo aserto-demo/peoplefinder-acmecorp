@@ -53,8 +53,7 @@ exports.getUsers = async (req) => {
 // update a user
 exports.updateUser = async (req, user, payload) => {
   try {
-    const response = await directoryClient.setObject({ object: payload });
-    return toJson(SetObjectResponseSchema, response).result;
+    return await directoryClient.setObject({ object: payload });
   } catch (error) {
     console.error(`updateUser: caught exception: ${error}`);
     return null;
