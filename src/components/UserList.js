@@ -1,5 +1,5 @@
 import React from 'react'
-import { CardDeck } from 'react-bootstrap'
+import { Row } from 'react-bootstrap'
 import UserCard from './UserCard'
 
 const UserList = ({ users }) => {
@@ -8,9 +8,9 @@ const UserList = ({ users }) => {
 
   return (
     users ?
-      <CardDeck>
+      <Row>
         {users.slice(0, results).map(u => <UserCard key={u[idKey]} user={u} />)}
-      </CardDeck> :
+      </Row> :
       <div />
   )
 }

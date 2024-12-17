@@ -92,7 +92,7 @@ const NavBar = () => {
                 </Nav.Item>
               }
             </Nav>
-            <Nav className="d-none d-md-block">
+            <Nav className="d-grid gap-2 d-none d-md-block ms-auto">
               {!isAuthenticated && (
                 <Nav.Item>
                   <Button
