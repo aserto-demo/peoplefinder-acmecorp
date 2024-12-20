@@ -84,7 +84,7 @@ const UserDetails = withRouter(({ user, setUser, loadUser, history }) => {
       }
 
       const userData = await response.json();
-      setUser(userData);
+      setUser(userData.result);
 
       // reload the user, just to make sure we have the correct data
       loadUser();

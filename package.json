@@ -3,7 +3,7 @@
   "version": "0.1.26",
   "private": true,
   "dependencies": {
-    "@aserto/aserto-node": "^0.32.6",
+    "@aserto/aserto-node": "^0.33.2",
     "@aserto/aserto-react": "^0.3.0",
     "@babel/core": "^7.0.0",
     "@babel/plugin-syntax-flow": "^7.14.5",
@@ -11,7 +11,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "bootstrap": "^4.5.3",
+    "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "dotenv-expand": "^9.0.0",
@@ -74,7 +74,12 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@popperjs/core": "^2.11.8",
     "@testing-library/dom": "^10.2.0",
     "nodemon": "^3.1.4"
+  },
+  "resolutions": {
+    "nth-check": "2.1.1",
+    "postcss": "8.4.47"
   }
 }

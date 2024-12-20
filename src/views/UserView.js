@@ -40,7 +40,7 @@ const UserView = () => {
         setLoading(false);
       } else {
         const userData = await response.json();
-        setUser(userData);
+        setUser(userData.result);
         setLoading(false);
       }
     } catch (error) {

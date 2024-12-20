@@ -1,16 +1,16 @@
 import React from 'react'
-import { CardDeck } from 'react-bootstrap'
+import { Row } from 'react-bootstrap'
 import UserCard from './UserCard'
 
-const UserList = ({ users, setUsers }) => {
-  const idKey = 'key';
+const UserList = ({ users }) => {
+  const idKey = 'id';
   const results = 40;
 
   return (
     users ?
-      <CardDeck>
+      <Row>
         {users.slice(0, results).map(u => <UserCard key={u[idKey]} user={u} />)}
-      </CardDeck> :
+      </Row> :
       <div />
   )
 }

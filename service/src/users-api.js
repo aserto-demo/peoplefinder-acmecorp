@@ -43,9 +43,7 @@ if (authorizerCertCAFile) {
   authzOptions.authorizerCertCAFile = authorizerCertCAFile;
 }
 
-console.log("authzOptions", authzOptions)
-
-
+console.log("authzOptions", authzOptions);
 
 const authClient = new Authorizer({
   authorizerServiceUrl: authzOptions.authorizerServiceUrl,
